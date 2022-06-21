@@ -4,8 +4,8 @@
       sudo systemctl stop subspaced subspaced-farmer
       sudo rm /usr/local/bin/subspace*
       sleep 2
-      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-node-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-node
-      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-farmer-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-farmer
+      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-18/subspace-node-ubuntu-x86_64-gemini-1b-2022-jun-18 -O subspace-node
+      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-18/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-jun-18 -O subspace-farmer
       chmod +x *
       sudo mv subspace* /usr/local/bin/
       sudo systemctl restart subspaced && sleep 10
