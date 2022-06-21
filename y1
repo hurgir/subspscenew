@@ -1,0 +1,24 @@
+upgrade () {
+      echo -e "Upgrade process begins..."
+      BINARY=$(uname -m)
+      sleep 2
+      cd $HOME
+      echo -e ''
+      echo -e ${GREEN}"Removing old binaries..."${NC}
+      sudo rm -rf $HOME/subspace-binaries/* && cd $HOME/subspace-binaries
+      sudo systemctl stop farmerd subspaced
+      sudo rm /usr/bin/subspaced /usr/bin/farmerd
+      sleep 2
+      echo -e ''
+      echo -e ${GREEN}"Downloading new binaries..."${NC}
+      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-node-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-node
+      wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-farmer-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-farmer
+      chmod +x *
+      sudo mv * /usr/bin
+      echo -e ''
+      echo -e ${GREEN}"Starting daemons..."${NC}
+      sudo systemctl restart subspaced && sleep 7
+      sudo systemctl restart 
+      echo -e ''
+      echo -e ${GREEN}"All done!"${NC}
+}
