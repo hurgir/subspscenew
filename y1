@@ -1,24 +1,28 @@
-upgrade () {
-      echo -e "Upgrade process begins..."
-      BINARY=$(uname -m)
-      sleep 2
+     
       cd $HOME
-      echo -e ''
-      echo -e ${GREEN}"Removing old binaries..."${NC}
-      sudo rm -rf $HOME/subspace-binaries/* && cd $HOME/subspace-binaries
-      sudo systemctl stop farmerd subspaced
-      sudo rm /usr/bin/subspaced /usr/bin/farmerd
+      sudo rm -rf $HOME/subspace* && cd $HOME/subspace-binaries
+      sudo systemctl stop subspaced subspaced-farmer
+      sudo rm /usr/local/bin/subspace*
       sleep 2
-      echo -e ''
-      echo -e ${GREEN}"Downloading new binaries..."${NC}
       wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-node-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-node
       wget -q https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-farmer-ubuntu-$BINARY-gemini-1b-2022-jun-13 -O subspace-farmer
       chmod +x *
-      sudo mv * /usr/bin
-      echo -e ''
-      echo -e ${GREEN}"Starting daemons..."${NC}
-      sudo systemctl restart subspaced && sleep 7
-      sudo systemctl restart 
-      echo -e ''
-      echo -e ${GREEN}"All done!"${NC}
-}
+      sudo mv subspace* /usr/local/bin/
+      sudo systemctl restart subspaced && sleep 10
+      
+      sudo systemctl restart subspaced-farmer
+
+
+
+      cd $HOME
+      rm -rf subspace*
+      wget -O subspace-node https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-node-ubuntu-x86_64-gemini-1b-2022-jun-13
+      wget -O subspace-farmer https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-13/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-jun-13
+      chmod +x subspace*
+      mv subspace* /usr/local/bin/
+
+      systemctl stop subspaced subspaced-farmer &>/dev/null
+      rm -rf ~/.local/share/subspace*
+
+      source ~/.bash_profile
+      sleep 1
