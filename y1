@@ -1,6 +1,6 @@
      
       cd $HOME
-      sudo rm -rf $HOME/subspace* && cd $HOME/subspace-binaries
+      sudo rm -rf $HOME/subspace*
       sudo systemctl stop subspaced subspaced-farmer
       sudo rm /usr/local/bin/subspace*
       sleep 2
